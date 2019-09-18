@@ -10,7 +10,7 @@
     "watch-node": "nodemon dist/server.js",
     "watch-ts": "tsc -w",
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "echo \"Warning: no test specified\" && exit 0",
     "watch": "npm run build-ts && concurrently 'npm:watch-ts' 'npm:watch-node'"
   },
   "husky": {
