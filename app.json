@@ -2,7 +2,7 @@
   "environments": {
     "test": {
       "scripts": {
-        "test": "npm run build-ts && npm run lint && npm run test"
+        "test": "npm run build && npm run lint && npm run test"
       }
     }
   }
