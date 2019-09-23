@@ -1,0 +1,9 @@
+{
+  "environments": {
+    "test": {
+      "scripts": {
+        "test": "npm run build-ts && npm run lint && npm run test"
+      }
+    }
+  }
+}
