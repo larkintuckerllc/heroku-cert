@@ -10,7 +10,7 @@ app.use(cors());
 app.use(noCache());
 app.use(compression());
 app.get('/', (req, res) => {
-  const hello = 'world 2';
+  const hello = 'world 3';
   if (process.env.DEVELOPMENT) {
     const requestId = req.header('x-request-id');
     // eslint-disable-next-line
