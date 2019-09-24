@@ -18,5 +18,12 @@
   "name": "heroku-cert",
   "scripts": {
   },
-  "stack": "heroku-18"
+  "stack": "heroku-18",
+  "environments": {
+    "test": {
+      "scripts": {
+        "test": "npm run lint && npm run test"
+      }
+    }
+  }
 }
