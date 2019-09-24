@@ -10,7 +10,7 @@ app.use(cors());
 app.use(noCache());
 app.use(compression());
 app.get('/', (req, res) => {
-  const hello = 'world test1';
+  const hello = 'world';
   if (process.env.DEVELOPMENT) {
     const requestId = req.header('x-request-id');
     // eslint-disable-next-line
@@ -19,4 +19,4 @@ app.get('/', (req, res) => {
   res.send({ hello });
 });
 // eslint-disable-next-line
-app.listen(PORT, () => console.log(`test2 Example app listening on port ${PORT}!`));``
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));``
