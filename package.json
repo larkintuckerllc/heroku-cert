@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && tsc",
     "start": "npm run serve",
     "serve": "node dist/server.js",
     "watch-node": "nodemon --exec \"heroku local\" --signal SIGTERM",
@@ -40,6 +40,7 @@
     "lint-staged": "^9.2.5",
     "nodemon": "^1.19.2",
     "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
     "typescript": "^3.6.3"
   },
   "dependencies": {
@@ -53,7 +54,9 @@
     "express": "^4.17.1",
     "helmet": "^3.21.1",
     "knex": "^0.19.4",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.19"
   },
   "engines": {
     "node": "10.16.3"
