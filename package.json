@@ -11,7 +11,8 @@
     "watch-ts": "tsc -w",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "echo \"Warning: no test specified\" && exit 0",
-    "watch": "npm run build && concurrently 'npm:watch-ts' 'npm:watch-node'"
+    "watch": "npm run build && concurrently 'npm:watch-ts' 'npm:watch-node'",
+    "migration-run": "typeorm migration:run"
   },
   "husky": {
     "hooks": {
