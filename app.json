@@ -17,6 +17,7 @@
   },
   "name": "heroku-cert",
   "scripts": {
+    "postdeploy": "node ./dist/scripts/seed.js"
   },
   "stack": "heroku-18",
   "environments": {
