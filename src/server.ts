@@ -25,8 +25,12 @@ const start = async (): Promise<void> => {
       res.send({ hello });
     });
     app.get('/todos', async (req, res) => {
-      const todos = await connection.manager.find(Todo);
-      res.send(todos);
+      try {
+        const todos = await connection.manager.find(Todo);
+        res.send(todos);
+      } catch (err) {
+        res.status(500).send();
+      }
     });
     // eslint-disable-next-line
     app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
