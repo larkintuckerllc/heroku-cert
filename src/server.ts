@@ -29,7 +29,7 @@ const start = async (): Promise<void> => {
       res.send(todos);
     });
     // eslint-disable-next-line
-    app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+    app.listen(PORT, () => console.log(`TEST Example app listening on port ${PORT}!`));
   } catch (err) {
     // eslint-disable-next-line
     console.log(err);
