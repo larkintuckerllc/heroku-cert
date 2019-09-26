@@ -1,5 +1,6 @@
 {
   "addons": [
+    "heroku-postgresql",
     "papertrail"
   ],
   "buildpacks": [
