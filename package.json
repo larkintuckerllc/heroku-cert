@@ -57,6 +57,7 @@
     "express": "^4.17.1",
     "helmet": "^3.21.1",
     "knex": "^0.19.4",
+    "no-kafka": "^3.4.3",
     "pg": "^7.12.1",
     "redis": "^2.8.0",
     "reflect-metadata": "^0.1.13",

@@ -6,6 +6,7 @@ import { createClient } from 'redis';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import uuidv4 from 'uuid/v4';
+import { Producer } from 'no-kafka';
 
 import Todo from './entity/Todo';
 
@@ -51,8 +52,20 @@ const checkToken = (token: string): Promise<boolean> =>
     });
   });
 
+// KAFKA SETUP
+const KAFKA_TOPIC = 'test';
+const KAFKA_PARTITION = 0;
+const { KAFKA_URL } = process.env;
+if (KAFKA_URL === undefined) {
+  // eslint-disable-next-line
+  console.log('ERROR: KAFKA_URL env variable missing');
+  process.exit(1);
+}
+const producer = new Producer();
+
 const start = async (): Promise<void> => {
   try {
+    await producer.init();
     const connection = await createConnection();
     const app = express();
     app.use(cors());
@@ -97,6 +110,20 @@ const start = async (): Promise<void> => {
           return;
         }
         res.send({ secret: 'world' });
+      } catch (err) {
+        res.status(500).send();
+      }
+    });
+    app.get('/send', async (req, res) => {
+      try {
+        await producer.send({
+          topic: KAFKA_TOPIC,
+          partition: KAFKA_PARTITION,
+          message: {
+            value: 'Hello',
+          },
+        });
+        res.send({ sent: true });
       } catch (err) {
         res.status(500).send();
       }
