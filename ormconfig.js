@@ -1,4 +1,4 @@
-const { DATABASE_URL } = process.env;
+const { DATABASE_URL, LOCALHOST } = process.env;
 module.exports = {
   type: 'postgres',
   url: DATABASE_URL,
@@ -17,5 +17,8 @@ module.exports = {
     entitiesDir: 'src/entity',
     migrationsDir: 'src/migration',
     subscribersDir: 'src/subscriber',
+  },
+  extra: {
+    ssl: LOCALHOST !== undefined,
   }
 };

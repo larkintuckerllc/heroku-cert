@@ -3,7 +3,9 @@ import cors from 'cors';
 import express from 'express';
 import fs from 'fs';
 import { noCache } from 'helmet';
+import knex from 'knex';
 import https from 'https';
+import pg from 'pg';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import uuidv4 from 'uuid/v4';
@@ -11,8 +13,17 @@ import Todo from './entity/Todo';
 import oauth2 from './oauth2';
 import { getValue, setValue } from './redis';
 import { DEFAULT_PORT, REDIS_TOKEN_PREFIX } from './constants';
+import { DATABASE_URL, DEVELOPMENT, LOCALHOST } from './env';
 
 const PORT = process.env.PORT || DEFAULT_PORT;
+
+if (LOCALHOST !== undefined) {
+  pg.defaults.ssl = true;
+}
+const pgClient = knex({
+  client: 'pg',
+  connection: DATABASE_URL,
+});
 
 const start = async (): Promise<void> => {
   try {
@@ -24,7 +35,7 @@ const start = async (): Promise<void> => {
     app.use('/oauth2', oauth2);
     app.get('/', (req, res) => {
       const hello = 'world';
-      if (process.env.DEVELOPMENT) {
+      if (DEVELOPMENT) {
         const requestId = req.header('x-request-id');
         // eslint-disable-next-line
         console.log(`${requestId}: ${hello}`);
@@ -65,7 +76,18 @@ const start = async (): Promise<void> => {
         res.status(500).send();
       }
     });
-    if (process.env.LOCALHOST) {
+    app.get('/contacts', async (req, res) => {
+      try {
+        const contacts = await pgClient.select('sfid', 'name').from('salesforce.contact');
+        // eslint-disable-next-line
+        res.send(contacts);
+      } catch (err) {
+        // eslint-disable-next-line
+        console.log('ERROR: contacts query failed');
+        res.status(500).send();
+      }
+    });
+    if (LOCALHOST) {
       https
         .createServer(
           {
